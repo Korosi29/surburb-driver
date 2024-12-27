@@ -351,3 +351,6 @@ document.querySelector('.loading-bar').addEventListener('animationend', function
 function play(){
   document.querySelector('.menu-con').style.display = "none";
 }
+function goToAboutPage() {
+    window.location.href = "about.html"; // Replace with your desired URL
+}

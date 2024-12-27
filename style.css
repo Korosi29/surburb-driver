@@ -481,7 +481,7 @@ body {
   background-image: url('main.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  animation: appear 3.57s 1 forwards;
+  animation: appear 2.57s 1 forwards;
 }
 .loading-bar-con{
   width: 80%;
@@ -496,7 +496,7 @@ body {
 .loading-bar{
   height: 100%;
   background-color: black;
-  animation: loading-anim 11s 1 forwards;
+  animation: loading-anim 7s 1 forwards;
 }
 .loading-text{
   font-size: 1.1em;
@@ -505,6 +505,18 @@ body {
 }
 .version-number{
   font-size: .75em;
+}
+.about-text-con{
+  background-color: #000000ff;
+    width: 100vw;
+    height: 100vh:
+    position: fixed;
+    bottom:0;
+    left: 0;
+    display: flex;
+    justify-content: center ;
+    z-index: 1001;
+    color: white;
 }
 @keyframes appear{
   0%{
