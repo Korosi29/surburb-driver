@@ -1,0 +1,525 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@100..900&display=swap');
+
+body {
+    margin: 0;
+    font-family: Times New Roman;
+    background-color: darkgreen;
+    user-select: none;
+}
+#main-road-con {
+    max-width: 300px;
+    height: 100vh;
+    margin: 0 auto;
+    background-image: url("road.jpg");
+    background-size: 230px 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+#lane-container {
+    width: 4px;
+    height: 200vh;
+    position: absolute;
+    left: 152px;
+}
+#lanes {
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(
+        transparent,
+        transparent 90%,
+        white 90%,
+        white 95%,
+        transparent 95%,
+        white 95%
+    );
+    background-size: 3px 100px;
+    background-position-y: 0;
+    background-repeat: repeat-y;
+}
+#tree1,
+#tree2,
+#tree3 {
+    position: absolute;
+    width: 100px;
+    z-index: 2;
+    animation: moveDown 9s linear infinite;
+}
+#tree1 {
+    top: 380px;
+}
+#tree2 {
+    top: 50px;
+}
+#tree3 {
+    top: -400px;
+}
+#c1-container {
+    display: non;
+    position: relative;
+    width: 190px;
+    height: contain;
+    top: 60%;
+    left: 100px;
+}
+#car1 {
+    position: absolute;
+    width: 100%;
+}
+.c1-headlight-left,
+.c1-headlight-right {
+    display: none;
+    width: 8px; /* Size of the headlight */
+    height: 8px;
+    background-color: #e3e3ff; /* Bright white light */
+    position: absolute;
+    bottom: -34px;
+    left: 67px;
+    box-shadow:
+        0 -50px 30px 5px rgba(255, 255, 255, 0.4),
+        /* Inner bright glow */ 0 -70px 20px 10px rgba(255, 255, 255, 0.7),
+        /* Medium glow */ 0 -90px 20px 5px rgba(255, 255, 255, 0.6),
+        /* Outer glow */ 0px -110px 20px 5px rgba(255, 255, 224, 0.3); /* Fading beam */
+    filter: blur(2px) brightness(1);
+}
+.c1-headlight-right {
+    bottom: -35px;
+    left: 112px;
+}
+.c1-turn-sig-front-left,
+.c1-turn-sig-back-left,
+.c1-turn-sig-front-right,
+.c1-turn-sig-back-right {
+    display: none;
+    width: 3px; /* Size of the headlight */
+    height: 3px;
+    background-color: yellow; /* Bright white light */
+    position: absolute;
+    bottom: -37px;
+    left: 64px;
+    box-shadow: -10px -10px 30px 10px rgba(255, 255, 0, 0.7);
+    filter: blur(1px) brightness(2);
+    animation: turn-sig-blink 0.75s infinite steps(2);
+}
+.c1-turn-sig-back-left {
+    bottom: -161px;
+    left: 66px;
+    box-shadow: -10px 10px 30px 10px rgba(255, 255, 0, 0.7);
+}
+.c1-turn-sig-front-right {
+    bottom: -38px;
+    left: 121px;
+    box-shadow: 10px -10px 30px 10px rgba(255, 255, 0, 0.7);
+}
+.c1-turn-sig-back-right {
+    bottom: -161px;
+    left: 118px;
+    box-shadow: 10px 10px 30px 10px rgba(255, 255, 0, 0.7);
+}
+.c1-mid-tail-light {
+    position: absolute;
+    width: 15px;
+    height: 1px;
+    background-color: darkred;
+    bottom: -166px;
+    left: 87px;
+}
+.c1-brake-blink {
+    animation: brake-blink 1.2s infinite steps(2, start);
+}
+.c1-tail-light-left,
+.c1-tail-light-right {
+    display: none;
+    width: 3px; /* Size of the headlight */
+    height: 2px;
+    background-color: darkred; /* Bright white light */
+    position: absolute;
+    bottom: -163px;
+    left: 69px;
+    box-shadow: 0px 70px 70px 8px rgba(255, 0, 0, 0.9);
+    filter: blur(2px) brightness(2.7);
+}
+.c1-tail-light-right {
+    bottom: -163px;
+    left: 116px;
+}
+
+/*Car 2 style*/
+
+.c2-container {
+    display: none;
+    position: relative;
+    width: 260px;
+    height: contain;
+    top: 60%;
+    left: 66px;
+}
+#car2 {
+    position: absolute;
+    width: 100%;
+}
+.c2-headlight-left,
+.c2-headlight-right {
+    display: none;
+    width: 6px; /* Size of the headlight */
+    height: 4px;
+    background-color: #e3e3ff; /* Bright white light */
+    position: absolute;
+    bottom: -57px;
+    left: 97px;
+    box-shadow:
+        0 -50px 20px 5px rgba(255, 255, 255, 0.4),
+        /* Inner bright glow */ 0 -70px 30px 10px rgba(255, 255, 255, 0.7),
+        /* Medium glow */ 0 -90px 20px 5px rgba(255, 255, 255, 0.6),
+        0px -110px 20px 5px rgba(255, 255, 224, 0.3);
+    filter: blur(2px) brightness(1);
+}
+.c2-headlight-right {
+    bottom: -57px;
+    left: 156px;
+}
+.c2-turn-sig-front-left,
+.c2-turn-sig-back-left,
+.c2-turn-sig-front-right,
+.c2-turn-sig-back-right {
+    width: 3px;
+    height: 3px;
+    position: absolute;
+    background: yellow;
+    bottom: -61px;
+    left: 94px;
+    box-shadow: -10px -10px 30px 10px rgba(255, 255, 0, 0.7);
+    filter: blur(1px) brightness(2.7);
+    animation: turn-sig-blink 0.75s infinite steps(2);
+}
+.c2-turn-sig-back-left {
+    bottom: -232px;
+    left: 94px;
+    width: 0;
+    box-shadow: -10px 10px 30px 10px rgba(255, 255, 0, 0.7);
+}
+.c2-turn-sig-front-right {
+    bottom: -61px;
+    left: 161px;
+    box-shadow: 10px -10px 30px 10px rgba(255, 255, 0, 0.7);
+}
+.c2-turn-sig-back-right {
+    bottom: -232px;
+    left: 161px;
+    width: 0;
+    box-shadow: 10px 10px 30px 10px rgba(255, 255, 0, 0.7);
+}
+.c2-tail-light-left,
+.c2-tail-light-right {
+    width: 3px;
+    height: 2px;
+    background-color: darkred;
+    position: absolute;
+    bottom: -232px;
+    left: 94px;
+    box-shadow: 0px 70px 70px 8px rgba(255, 0, 0, 0.9);
+    filter: blur(2px) brightness(2.7);
+}
+.c2-tail-light-right {
+    bottom: -232px;
+    left: 161px;
+}
+
+@keyframes turn-sig-blink {
+    0% {
+        display: none;
+    }
+    100% {
+        display: block;
+    }
+}
+@keyframes brake-blink {
+    0% {
+        box-shadow: 0px 30px 30px 8px rgba(255, 0, 0, 0.9);
+        filter: blur(1px) brightness(2.7);
+    }
+    5% {
+        box-shadow: 0px 50px 50px 8px rgba(255, 0, 0, 0);
+        filter: blur(0) brightness(1);
+    }
+    10% {
+        box-shadow: 0px 30px 30px 8px rgba(255, 0, 0, 0.9);
+        filter: blur(1px) brightness(2.7);
+    }
+    15% {
+        box-shadow: 0px 50px 50px 8px rgba(255, 0, 0, 0);
+        filter: blur(0) brightness(1);
+    }
+    20% {
+        box-shadow: 0px 30px 30px 8px rgba(255, 0, 0, 0.9);
+        filter: blur(1px) brightness(2.7);
+    }
+    25% {
+        box-shadow: none;
+        filter: blur(0) brightness(1);
+    }
+    30% {
+        box-shadow: 0px 30px 30px 8px rgba(255, 0, 0, 0.9);
+        filter: blur(1px) brightness(2.7);
+    }
+    35% {
+        box-shadow: none;
+        filter: blur(0) brightness(1);
+    }
+    40% {
+        box-shadow: 0px 30px 30px 8px rgba(255, 0, 0, 0.9);
+        filter: blur(1px) brightness(2.7);
+    }
+    45% {
+        box-shadow: none;
+        filter: blur(0) brightness(1);
+    }
+    50% {
+        box-shadow: 0px 30px 30px 8px rgba(255, 0, 0, 0.9);
+        filter: blur(1px) brightness(2.7);
+    }
+    55% {
+        box-shadow: none;
+        filter: blur(0) brightness(1);
+    }
+    100% {
+        box-shadow: none;
+        filter: blur(0) brightness(1);
+    }
+}
+.on-turn-sig {
+    display: block;
+}
+.on-low-beam-headlight {
+    display: block;
+}
+.on-full-beam-headlight {
+    box-shadow:
+        0 -50px 30px 5px rgba(255, 255, 255, 0.8),
+        /* Inner bright glow */ 0 -80px 20px 10px rgba(255, 255, 255, 1),
+        /* Medium glow */ 0 -100px 20px 15px rgba(255, 255, 255, 1),
+        /* Outer glow */ 0px -110px 20px 8px rgba(255, 255, 224, 0.8); /* Fading beam */
+    filter: blur(2px) brightness(2.5);
+}
+.control-icons {
+    width: 50px;
+    position: fixed;
+    z-index: 999;
+    /* background-color: rgba(255, 255, 255, .27);*/
+    filter: invert(100%);
+    border-radius: 50%;
+    padding: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+}
+.control-left {
+    bottom: 19%;
+    left: 5%;
+    transform: rotate(-180deg);
+}
+
+.control-right {
+    bottom: 19%;
+    right: 5%;
+}
+.throttle-icon {
+    bottom: 9%;
+    right: 5%;
+}
+.brake-icon {
+    bottom: 9%;
+    left: 5%;
+}
+.full-beam {
+    bottom: 30%;
+    left: 5%;
+    width: 35px;
+}
+.low-beam {
+    bottom: 38%;
+    left: 20px;
+    width: 25px;
+}
+.turn-left {
+    bottom: 46%;
+    left: 20px;
+    width: 20px;
+    transform: rotate(-90deg);
+}
+.turn-right {
+    bottom: 46%;
+    right: 20px;
+    width: 20px;
+    transform: rotate(90deg);
+}
+.emergency-light-icon {
+    bottom: 38%;
+    right: 20px;
+    width: 25px;
+}
+.ignition-icon-con {
+    position: fixed;
+    width: contain;
+    bottom: 28%;
+    right: 9px;
+    z-index: 999;
+}
+.ignition-icon-con img {
+    width: 65px;
+}
+.ignition-indicator {
+    width: 17px;
+    height: 7px;
+    position: absolute;
+    top: 17px;
+    left: 24px;
+    filter: blur(1.5px) brightness(5);
+}
+.gears {
+    width: 30px;
+    height: 30px;
+    font-weight: bold;
+    /*background-color: rgba(2, 99, 190, 1);*/
+    border: 1px solid rgba(170, 170, 170, 0.6);
+    color: rgba(170, 170, 170, 0.6);
+    margin-bottom: 8px;
+    border-radius: 50%;
+}
+.gears span {
+    display: inline-block;
+    margin-left: 9px;
+    margin-top: 5px;
+}
+.neutral-gear {
+    border: 1px solid rgb(254, 255, 00);
+}
+.reverse-gear {
+    border: 1px solid rgb(254, 100, 00);
+}
+.gear-con {
+    position: fixed;
+    bottom: 52%;
+    right: 25px;
+}
+#pause {
+    position: fixed;
+    top: 15px;
+    left: 18px;
+    z-index: 999;
+}
+#pause img{
+  width: 20px;
+  filter: invert(100%);
+}
+.menu-con{
+    background: linear-gradient(rgba(0,0,0, .6), rgba(0,0,0, .6)),#D9F0FE;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center; 
+}
+.menu-inner-con{
+  width: 100%;
+  height: 360px;
+  background-image: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0, .6)), url('main.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.play, .about{
+ background-color: white;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom : 30px;
+  font-size: 2.3rem;
+  font-weight: bold;
+  border: 2px solid black;
+  border-radius: 10px;
+  color:black;
+  font-family: Sans-Serif;
+}
+.play{
+  margin-top: 55px;
+}
+.about{
+ font-size: 1.3rem;
+}
+.kgames{
+  position: fixed;
+  bottom: 20px;
+  left:0;
+  right: 0;
+  margin: auto;
+  color: white;
+  font-size: .75em;
+}
+
+.loading-main{
+    background-color: #D9F0FE;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; 
+}
+.loading-inner{
+  width: 100%;
+  height: 360px;
+  background-image: url('main.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: appear 3.57s 1 forwards;
+}
+.loading-bar-con{
+  width: 80%;
+  height: 25px;
+  left: 0;
+  right : 0;
+  position: relative;
+  border: 1px solid black;
+  bottom: -60px;
+  margin-bottom: 10px;
+}
+.loading-bar{
+  height: 100%;
+  background-color: black;
+  animation: loading-anim 11s 1 forwards;
+}
+.loading-text{
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: center;
+}
+.version-number{
+  font-size: .75em;
+}
+@keyframes appear{
+  0%{
+    filter: opacity(0);
+  }30%{
+    filter: opacity(0);
+  }
+  100%{
+    filter: opacity(1);
+  }
+}
+@keyframes loading-anim{
+  0%{
+    width: 0;
+  }100%{
+    width: 100%;
+  }
+}

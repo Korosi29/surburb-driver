@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width=initial-scale=1.0" />
+        <meta property="og:image" content="https://i.imgur.com/q4vDc5Y.jpeg"/>
+  <meta property="og:title" content="The Surburb Driver">
+  <meta property="og:description" content="Drive through the surburb">
+        <link rel="stylesheet" href="style.css" />
+        <title>Surburb Driver</title>
+    </head>
+    <body>
+        <div id="main-road-con">
+            <div id="lane-container">
+                <!-- create lines-->
+                <div id="lanes"></div>
+            </div>
+
+            
+
+            <!-- Cars -->
+            <div id="c1-container">
+                <img src="car1.png" alt="default car" id="car1" />
+
+                <!-- Car 1 features -->
+                <div class="c1-headlight-left"></div>
+                <div class="c1-headlight-right"></div>
+                <div class="c1-turn-sig-front-left c1-turn-sig"></div>
+                <div class="c1-turn-sig-front-right c1-turn-sig"></div>
+                <div class="c1-turn-sig-back-left c1-turn-sig"></div>
+                <div class="c1-turn-sig-back-right c1-turn-sig"></div>
+                <div class="c1-mid-tail-light"></div>
+                <div class="c1-tail-light-left"></div>
+                <div class="c1-tail-light-right"></div>
+            </div>
+
+            <!-- car 2-->
+            <div class="c2-container">
+                <img src="car2.png" alt="optional car" id="car2" />
+
+                <!-- Car 2 features -->
+                <div class="c2-headlight-left"></div>
+                <div class="c2-headlight-right"></div>
+                <div class="turn-sig-front-left"></div>
+            </div>
+            <div class="c2-turn-sig-front-right"></div>
+            <div class="c2-turn-sig-back-left"></div>
+            <div class="c2-turn-sig-back-right"></div>
+            <div class="c2-tail-light-left"></div>
+            <div class="c2-tail-light-right"></div>
+        </div>
+        <!-- trees and cars must be included here because they must be positioned relative to main road container which contains the road as a picture-->
+
+        <div class="car-controls">
+            <!-- Controls container . this container includes all control icons-->
+
+            <!-- primary controls-->
+            <img
+                src="control.png"
+                alt="control arrow"
+                class="control-icons control-right"
+                id="control-right"
+            />
+            <img
+                src="control.png"
+                alt="control arrow"
+                class="control-icons control-left"
+                id="control-left"
+            />
+            <img
+                src="throttle.png"
+                alt="throttle icon"
+                class="control-icons throttle-icon"
+                oncontextmenu="return false;"
+            />
+            <img
+                src="brake.png"
+                alt="brake icon"
+                class="control-icons brake-icon"
+            />
+            <div class="ignition-icon-con">
+                <img
+                    src="ignition.png"
+                    alt="ignition icon"
+                    onclick="startStopEngine()"
+                />
+                <div class="ignition-indicator"></div>
+            </div>
+            <div class="gear-con">
+                <!--Gears-->
+                <div class="gears reverse-gear" id="reverse">
+                    <span>R</span>
+                </div>
+                <div class="gears neutral-gear" id="neutral">
+                    <span class="neutral">P</span>
+                </div>
+                <div class="gears" id="gear1">
+                    <span>1</span>
+                </div>
+                <div class="gears" id="gear2">
+                    <span>2</span>
+                </div>
+                <div class="gears" id="gear3"><span>3</span></div>
+                <div class="gears" id="gear4"><span>4</span></div>
+                <div class="gears" id="gear5"><span>5</span></div>
+                <div class="gears" id="gear6"><span>6</span></div>
+            </div>
+            <!-- secondary controls-->
+            <img
+                src="full-beam.png"
+                alt="full beam icon"
+                class="control-icons full-beam"
+            />
+            <img
+                src="low-beam.png"
+                alt="low beam icon"
+                class="control-icons low-beam"
+            />
+            <img
+                src="signal.png"
+                alt="turn signal light icon"
+                class="control-icons turn-left"
+            />
+            <img
+                src="signal.png"
+                alt="turn signal light icon"
+                class="control-icons turn-right"
+            />
+        </div>
+        <div id="pause">
+            <img src="pause.png" onclick="pause()">
+        </div>
+        <div class="menu-con">
+            <div class="menu-inner-con">
+              
+              <div class="play" onclick="play()">Play</div>
+            <div class="about">About Developer</div>
+            <div class="kgames">@ KGames &copy;2024</div> 
+            </div>
+        </div>
+        <div class="loading-main">
+          <div class="loading-inner">
+           
+          </div>
+           <div class="loading-bar-con">
+             <div class="loading-bar"></div> 
+             <div class="loading-text">Loading...</div> 
+             <div class="version-number">version 1.1</div> 
+          </div>
+        </div> 
+        <div class="about-text-con">
+          <p>This game is made to simulate car driving experience. Although, the experience might not seem realistic or perfect but we did our best to get it running fine. The CEO of Kgames <b>Engr.Korosi Hossana</b> has promised new versions of this game with improved experience and overall experience. We do hope playing this game will be an enjoyable experience making you to recommend us. Thank you.</p>
+        </div>
+        <script src="main.js"></script>
+    </body>
+</html>
