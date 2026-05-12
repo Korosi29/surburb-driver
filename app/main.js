@@ -101,14 +101,8 @@ car.throttle.addEventListener("click", revUp);
 car.brake.addEventListener("click", brake);
 car.controlLeft.addEventListener("click", goLeft);
 car.controlRight.addEventListener("click", goRight);
-// Maximum speed allowed per gear
-const maxSpeed = { 1: 30, 2: 60, 3: 100, 4: 150, 5: 210, 6: 280 };
-
 function revUp() {
-    if (car.engineOn) {
-        car.gear++;
-        if (car.gear > 6) car.gear = 6; // cap gear at 6
-    }
+    if (car.engineOn) car.gear++;
     if (!car.moving) {
         car.moving = true;
         function startMoving() {
@@ -140,12 +134,6 @@ function revUp() {
             } else {
                 car.gear = 6;
             }
-
-            // Enforce max speed cap for the current gear
-            if (car.gear >= 1 && car.revSpeed > maxSpeed[car.gear]) {
-                car.revSpeed = maxSpeed[car.gear];
-            }
-
             lanes.style.transition = "all .7s linear";
 
             lanes.style.backgroundPositionY = car.revSpeed + "px";
@@ -158,7 +146,6 @@ function revUp() {
 function brake() {
     if (car.engineOn) {
         car.gear--;
-        if (car.gear < -1) car.gear = -1;
     }
 }
 function pause(){
