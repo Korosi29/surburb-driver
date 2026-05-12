@@ -1,11 +1,13 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@100..900&display=swap");
 
 body {
     margin: 0;
     font-family: Times New Roman;
     background-color: darkgreen;
     user-select: none;
+    width: 350px;
+}
+.my-game {
 }
 #main-road-con {
     max-width: 300px;
@@ -39,23 +41,7 @@ body {
     background-position-y: 0;
     background-repeat: repeat-y;
 }
-#tree1,
-#tree2,
-#tree3 {
-    position: absolute;
-    width: 100px;
-    z-index: 2;
-    animation: moveDown 9s linear infinite;
-}
-#tree1 {
-    top: 380px;
-}
-#tree2 {
-    top: 50px;
-}
-#tree3 {
-    top: -400px;
-}
+
 #c1-container {
     display: non;
     position: relative;
@@ -408,130 +394,132 @@ body {
     left: 18px;
     z-index: 999;
 }
-#pause img{
-  width: 20px;
-  filter: invert(100%);
+#pause img {
+    width: 20px;
+    filter: invert(100%);
 }
-.menu-con{
-    background: linear-gradient(rgba(0,0,0, .6), rgba(0,0,0, .6)),#D9F0FE;
-    width: 100vw;
-    height: 100vh;
+.menu-con {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), #d9f0fe;
+    width: 320px;
+    height: 700px;
     position: fixed;
-    bottom: 0;
-    left: 0;
+    top: 0;
     z-index: 1000;
     display: none;
     justify-content: center;
     align-items: center;
-    text-align: center; 
+    text-align: center;
 }
-.menu-inner-con{
-  width: 100%;
-  height: 360px;
-  background-image: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0, .6)), url('main.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
+.menu-inner-con {
+    width: 100%;
+    height: 360px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url("main.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
-.play, .about{
- background-color: white;
-  width: 60%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom : 30px;
-  font-size: 2.3rem;
-  font-weight: bold;
-  border: 2px solid black;
-  border-radius: 10px;
-  color:black;
-  font-family: Sans-Serif;
+.play,
+.about {
+    background-color: white;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    font-size: 2.3rem;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius: 10px;
+    color: black;
+    font-family: Sans-Serif;
 }
-.play{
-  margin-top: 55px;
+.play {
+    margin-top: 55px;
 }
-.about{
- font-size: 1.3rem;
+.about {
+    font-size: 1.3rem;
 }
-.kgames{
-  position: fixed;
-  bottom: 20px;
-  left:0;
-  right: 0;
-  margin: auto;
-  color: white;
-  font-size: .75em;
+.kgames {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    color: white;
+    font-size: 0.75em;
 }
 
-.loading-main{
-    background-color: #D9F0FE;
-    width: 100vw;
-    height: 100vh;
+.loading-main {
+    background-color: #d9f0fe;
+    width: 320px;
+    height: 700px;
     position: fixed;
-    bottom: 0;
-    left: 0;
+    top: 0;
     z-index: 1000;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    text-align: center; 
+    text-align: center;
 }
-.loading-inner{
-  width: 100%;
-  height: 360px;
-  background-image: url('main.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  animation: appear 2.57s 1 forwards;
+.loading-inner {
+    width: 100%;
+    height: 360px;
+    background-image: url("main.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    animation: appear 2.57s 1 forwards;
 }
-.loading-bar-con{
-  width: 80%;
-  height: 25px;
-  left: 0;
-  right : 0;
-  position: relative;
-  border: 1px solid black;
-  bottom: -60px;
-  margin-bottom: 10px;
+.loading-bar-con {
+    width: 80%;
+    height: 25px;
+    left: 0;
+    right: 0;
+    position: relative;
+    border: 1px solid black;
+    bottom: -60px;
+    margin-bottom: 10px;
 }
-.loading-bar{
-  height: 100%;
-  background-color: black;
-  animation: loading-anim 7s 1 forwards;
+.loading-bar {
+    height: 100%;
+    background-color: black;
+    animation: loading-anim 7s 1 forwards;
 }
-.loading-text{
-  font-size: 1.1em;
-  font-weight: bold;
-  text-align: center;
+.loading-text {
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
 }
-.version-number{
-  font-size: .75em;
+.version-number {
+    font-size: 0.75em;
 }
-.about-text-con{
-  background-color: #000000ff;
+.about-text-con {
+    background-color: #000000ff;
     width: 100vw;
-    height: 100vh:
+    height: 100vh;
     position: fixed;
-    bottom:0;
+    bottom: 0;
     left: 0;
     display: flex;
-    justify-content: center ;
+    justify-content: center;
     z-index: 1001;
     color: white;
 }
-@keyframes appear{
-  0%{
-    filter: opacity(0);
-  }30%{
-    filter: opacity(0);
-  }
-  100%{
-    filter: opacity(1);
-  }
+@keyframes appear {
+    0% {
+        filter: opacity(0);
+    }
+    30% {
+        filter: opacity(0);
+    }
+    100% {
+        filter: opacity(1);
+    }
 }
-@keyframes loading-anim{
-  0%{
-    width: 0;
-  }100%{
-    width: 100%;
-  }
+@keyframes loading-anim {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
 }

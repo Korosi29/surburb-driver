@@ -1,37 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width=initial-scale=1.0" />
-        <meta property="og:image" content="https://i.imgur.com/q4vDc5Y.jpeg"/>
-  <meta property="og:title" content="The Surburb Driver">
-  <meta property="og:description" content="Drive through the surburb">
+        <meta property="og:image" content="https://i.imgur.com/q4vDc5Y.jpeg" />
+        <meta property="og:title" content="The Surburb Driver" />
+        <meta property="og:description" content="Drive through the surburb" />
         <link rel="stylesheet" href="style.css" />
-        
-        <link rel="preload" href="road.jpg" as="image">
-        <link rel="preload" href="main.jpg" as="image">
-        <link rel="preload" href="mypic.jpg" as="image">
-        <link rel="preload" href="car1.png" as="image">
-        <link rel="preload" href="car2.png" as="image">
-        <link rel="preload" href="brake.png" as="image">
-        <link rel="preload" href="control.png" as="image">
-        <link rel="preload" href="full-beam.png" as="image">
-        <link rel="preload" href="ignition.png" as="image">
-        <link rel="preload" href="low-beam.png" as="image">
-        <link rel="preload" href="pause.png" as="image">
-        <link rel="preload" href="signal.png" as="image">
-        <link rel="preload" href="throttle.png" as="image">
-        
+
+        <link rel="preload" href="road.jpg" as="image" />
+        <link rel="preload" href="main.jpg" as="image" />
+        <link rel="preload" href="mypic.jpg" as="image" />
+        <link rel="preload" href="car1.png" as="image" />
+        <link rel="preload" href="car2.png" as="image" />
+        <link rel="preload" href="brake.png" as="image" />
+        <link rel="preload" href="control.png" as="image" />
+        <link rel="preload" href="full-beam.png" as="image" />
+        <link rel="preload" href="ignition.png" as="image" />
+        <link rel="preload" href="low-beam.png" as="image" />
+        <link rel="preload" href="pause.png" as="image" />
+        <link rel="preload" href="signal.png" as="image" />
+        <link rel="preload" href="throttle.png" as="image" />
+
         <title>Surburb Driver</title>
     </head>
     <body>
+        <div class="my-game">
         <div id="main-road-con">
             <div id="lane-container">
                 <!-- create lines-->
                 <div id="lanes"></div>
             </div>
-
-            
 
             <!-- Cars -->
             <div id="c1-container">
@@ -142,28 +141,27 @@
                 class="control-icons turn-right"
             />
         </div>
-        <div id="pause">
-            <img src="pause.png" onclick="pause()">
+a        <div id="pause">
+            <img src="pause.png" onclick="pause()" />
         </div>
         <div class="menu-con">
             <div class="menu-inner-con">
-              
-              <div class="play" onclick="play()">Play</div>
-            <div class="about" onclick="goToAboutPage()">About Developer</div>
-            <div class="kgames">@ KGames &copy;2024</div> 
+                <div class="play" onclick="play()">Play</div>
+                <div class="about" onclick="goToAboutPage()">
+                    About Developer
+                </div>
+                <div class="kgames">@ KGames &copy;2024</div>
             </div>
         </div>
         <div class="loading-main">
-          <div class="loading-inner">
-           
-          </div>
-           <div class="loading-bar-con">
-             <div class="loading-bar"></div> 
-             <div class="loading-text">Loading...</div> 
-             <div class="version-number">version 1.1</div> 
-          </div>
-        </div> 
-       
+            <div class="loading-inner"></div>
+            <div class="loading-bar-con">
+                <div class="loading-bar"></div>
+                <div class="loading-text">Loading...</div>
+                <div class="version-number">version 1.1</div>
+            </div>
+        </div>
+    </div>
         <script src="main.js"></script>
     </body>
 </html>
