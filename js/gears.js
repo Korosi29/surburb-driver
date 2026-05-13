@@ -65,30 +65,29 @@ function brake() {
     }
 }
 
-function updateGearInDom() {
-    // Reset all gear indicators
-    Object.keys(car.gearsLightInDom).forEach(element => {
-        car.gearsLightInDom[element].style.backgroundColor = car.noColor;
-    });
+// Gear indicator lookup map — maps gear number to its DOM element and colour
+const gearIndicatorMap = {
+    "-1": { el: () => car.reverseIndicator, color: () => car.reverseGearLight },
+     "0": { el: () => car.neutralIndicator, color: () => car.neutralGearLight },
+     "1": { el: () => car.gear1Indicator,   color: () => car.positiveGearLight },
+     "2": { el: () => car.gear2Indicator,   color: () => car.positiveGearLight },
+     "3": { el: () => car.gear3Indicator,   color: () => car.positiveGearLight },
+     "4": { el: () => car.gear4Indicator,   color: () => car.positiveGearLight },
+     "5": { el: () => car.gear5Indicator,   color: () => car.positiveGearLight },
+     "6": { el: () => car.gear6Indicator,   color: () => car.positiveGearLight },
+};
 
-    // Light up the active gear
-    if (car.gear === 0) {
-        car.neutralIndicator.style.backgroundColor = car.neutralGearLight;
-    } else if (car.gear === 1) {
-        car.gear1Indicator.style.backgroundColor = car.positiveGearLight;
-    } else if (car.gear === 2) {
-        car.gear2Indicator.style.backgroundColor = car.positiveGearLight;
-    } else if (car.gear === 3) {
-        car.gear3Indicator.style.backgroundColor = car.positiveGearLight;
-    } else if (car.gear === 4) {
-        car.gear4Indicator.style.backgroundColor = car.positiveGearLight;
-    } else if (car.gear === 5) {
-        car.gear5Indicator.style.backgroundColor = car.positiveGearLight;
-    } else if (car.gear === 6) {
-        car.gear6Indicator.style.backgroundColor = car.positiveGearLight;
-    } else {
-        car.reverseIndicator.style.backgroundColor = car.reverseGearLight;
-    }
+// Track the currently lit indicator so we only touch two elements per update
+let activeGearIndicator = car.neutralIndicator;
+
+function updateGearInDom() {
+    // Turn off the previously active indicator
+    activeGearIndicator.style.backgroundColor = car.noColor;
+
+    // Look up the new active indicator — fall back to reverse if gear is out of range
+    const entry = gearIndicatorMap[String(car.gear)] || gearIndicatorMap["-1"];
+    activeGearIndicator = entry.el();
+    activeGearIndicator.style.backgroundColor = entry.color();
 }
 
 // Initialise gear display on page load
