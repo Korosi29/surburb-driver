@@ -13,6 +13,10 @@ function revUp() {
     if (!car.moving) {
         car.moving = true;
 
+        // Set transition once here — no need to repeat inside the animation loop
+        const lanes = document.getElementById("lanes");
+        lanes.style.transition = "all .7s linear";
+
         function startMoving() {
             if (car.gear <= -1) {
                 car.revSpeed += -1.8;
@@ -48,7 +52,6 @@ function revUp() {
                 car.revSpeed = maxSpeed[car.gear];
             }
 
-            lanes.style.transition = "all .7s linear";
             lanes.style.backgroundPositionY = car.revSpeed + "px";
 
             car.animationId = requestAnimationFrame(startMoving);
@@ -84,7 +87,7 @@ function updateGearInDom() {
     // Turn off the previously active indicator
     activeGearIndicator.style.backgroundColor = car.noColor;
 
-    // Look up the new active indicator — fall back to reverse if gear is out of range
+    // Look up and light up the new active indicator
     const entry = gearIndicatorMap[String(car.gear)] || gearIndicatorMap["-1"];
     activeGearIndicator = entry.el();
     activeGearIndicator.style.backgroundColor = entry.color();
