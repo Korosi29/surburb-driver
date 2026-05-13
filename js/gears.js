@@ -53,6 +53,7 @@ function revUp() {
             }
 
             lanes.style.backgroundPositionY = car.revSpeed + "px";
+            car.updateCurrentSpeedInDom.textContent = Math.round(Math.abs(car.revSpeed));
 
             car.animationId = requestAnimationFrame(startMoving);
         }
