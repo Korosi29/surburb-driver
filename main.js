@@ -105,10 +105,11 @@ car.controlRight.addEventListener("click", goRight);
 const maxSpeed = { 1: 30, 2: 60, 3: 100, 4: 150, 5: 210, 6: 280 };
 
 function revUp() {
-    if (car.engineOn) {
-        car.gear++;
-        if (car.gear > 6) car.gear = 6; // cap gear at 6
-    }
+    if (!car.engineOn) return;
+
+    // Only shift up if not already at max gear
+    if (car.gear < 6) car.gear++;
+
     if (!car.moving) {
         car.moving = true;
         function startMoving() {
