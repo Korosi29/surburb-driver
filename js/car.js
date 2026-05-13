@@ -5,14 +5,8 @@
 const car = {
     // Engine & movement state
     engineOn: false,
-    onGear: false,
-    clutchReleased: false,
     revSpeed: 0,
     animationId: undefined,
-    gearInMemory: undefined,
-    speedIntervalId: undefined,
-    coastingIntervalId: undefined,
-    reverseGear: false,
     moving: false,
     gear: 0,
 
