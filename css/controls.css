@@ -1,0 +1,130 @@
+/* controls.css — Game control icons and gear indicator */
+
+.control-icons {
+    width: 50px;
+    position: fixed;
+    z-index: 999;
+    filter: invert(100%);
+    border-radius: 50%;
+    padding: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.control-left {
+    bottom: 19%;
+    left: 5%;
+    transform: rotate(-180deg);
+}
+
+.control-right {
+    bottom: 19%;
+    right: 5%;
+}
+
+.throttle-icon {
+    bottom: 9%;
+    right: 5%;
+}
+
+.brake-icon {
+    bottom: 9%;
+    left: 5%;
+}
+
+.full-beam {
+    bottom: 30%;
+    left: 5%;
+    width: 35px;
+}
+
+.low-beam {
+    bottom: 38%;
+    left: 20px;
+    width: 25px;
+}
+
+.turn-left {
+    bottom: 46%;
+    left: 20px;
+    width: 20px;
+    transform: rotate(-90deg);
+}
+
+.turn-right {
+    bottom: 46%;
+    right: 20px;
+    width: 20px;
+    transform: rotate(90deg);
+}
+
+.emergency-light-icon {
+    bottom: 38%;
+    right: 20px;
+    width: 25px;
+}
+
+/* Ignition */
+.ignition-icon-con {
+    position: fixed;
+    width: contain;
+    bottom: 28%;
+    right: 9px;
+    z-index: 999;
+}
+
+.ignition-icon-con img {
+    width: 65px;
+}
+
+.ignition-indicator {
+    width: 17px;
+    height: 7px;
+    position: absolute;
+    top: 17px;
+    left: 24px;
+    filter: blur(1.5px) brightness(5);
+}
+
+/* Gear display */
+.gears {
+    width: 30px;
+    height: 30px;
+    font-weight: bold;
+    border: 1px solid rgba(170, 170, 170, 0.6);
+    color: rgba(170, 170, 170, 0.6);
+    margin-bottom: 8px;
+    border-radius: 50%;
+}
+
+.gears span {
+    display: inline-block;
+    margin-left: 9px;
+    margin-top: 5px;
+}
+
+.neutral-gear {
+    border: 1px solid rgb(254, 255, 00);
+}
+
+.reverse-gear {
+    border: 1px solid rgb(254, 100, 00);
+}
+
+.gear-con {
+    position: fixed;
+    bottom: 52%;
+    right: 25px;
+}
+
+/* Pause button */
+#pause {
+    position: fixed;
+    top: 15px;
+    left: 18px;
+    z-index: 999;
+}
+
+#pause img {
+    width: 20px;
+    filter: invert(100%);
+}
