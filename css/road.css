@@ -10,12 +10,22 @@
     background-position: center;
     position: relative;
     overflow: hidden;
+    /* Pin to top so road always fills full screen height */
+    top: 0;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 #lane-container {
     width: 4px;
-    height: 200vh;
+    height: 100%;
     position: absolute;
+    top: 0;
+    bottom: 0;
     left: 152px;
 }
 

@@ -1,11 +1,17 @@
 // engine.js — Engine start/stop logic
 // Depends on: car.js
 
+// Engine idle sound — loops while engine is on
+const idleSound = new Audio("assets/audio/engine-idle.mp3");
+idleSound.loop = true;
+
 function startStopEngine() {
     if (!car.engineOn) {
         car.startingSound.play();
         car.engineOn = true;
         document.querySelector(".ignition-indicator").style.backgroundColor = car.indicatorLight;
+
+        // Idle sound is started/stopped by the physics loop based on movement
 
         // Flash gear lights and turn signals on startup
         setTimeout(() => {
@@ -26,7 +32,12 @@ function startStopEngine() {
 
     } else {
         car.engineOn = false;
+
+        // Stop idle, play off sound
+        idleSound.pause();
+        idleSound.currentTime = 0;
         car.offingSound.play();
+
         document.querySelector(".ignition-indicator").style.backgroundColor = car.noColor;
 
         // Dim gear lights on shutdown

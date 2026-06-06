@@ -97,7 +97,7 @@
     width: 10px;
     height: 1px;
     background-color: darkred;
-    bottom: -174px;
+    bottom: -171px;
     left: 35px;
 }
 

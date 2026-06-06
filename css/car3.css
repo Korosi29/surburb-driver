@@ -1,0 +1,15 @@
+/* car3.css — Third car (Car 3) NPC styles */
+
+/* Static container hidden — NPC system spawns car3 dynamically */
+.c3-container {
+    display: none;
+    position: relative;
+    width: 260px;
+    top: 60%;
+    left: 66px;
+}
+
+#car3 {
+    position: absolute;
+    width: 100%;
+}

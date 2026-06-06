@@ -1,98 +1,142 @@
-// gears.js — Gear shifting, speed loop, and gear indicator updates
+// gears.js — Gear shifting, throttle/brake physics, and gear indicator updates
 // Depends on: car.js
 
-// Maximum speed allowed per gear
-const maxSpeed = { 1: 30, 2: 60, 3: 100, 4: 150, 5: 210, 6: 280 };
+// Maximum forward speed allowed per gear (km/h equivalent units)
+const maxSpeed = { 1: 3, 2: 5, 3: 8, 4: 12, 5: 16, 6: 20 };
 
-function revUp() {
+// Acceleration added per frame per gear when throttle is held
+const accelRate = { "-1": 0.13, 1: 0.06, 2: 0.09, 3: 0.13, 4: 0.18, 5: 0.24, 6: 0.30 };
+
+// How fast speed bleeds off per frame when coasting (no throttle, no brake)
+const COAST_DECAY   = 0.03;
+// How fast speed bleeds off per frame when braking
+const BRAKE_DECAY   = 0.25;
+
+// Input state flags — set/cleared by pointer events in ui.js
+car.throttleHeld = false;
+car.brakeHeld    = false;
+
+// ─── Gear shifting ────────────────────────────────────────────────────────────
+
+const gearChangeSound = new Audio("assets/audio/gear-change.mp3");
+
+function playGearChange() {
+    gearChangeSound.currentTime = 0;
+    gearChangeSound.play();
+}
+
+function gearUp() {
     if (!car.engineOn) return;
+    if (car.gear < 6) {
+        car.gear++;
+        playGearChange();
+        updateGearInDom();
+    }
+}
 
-    // Shift up one gear, capped at 6
-    if (car.gear < 6) car.gear++;
+function gearDown() {
+    if (!car.engineOn) return;
+    if (car.gear > -1) {
+        car.gear--;
+        playGearChange();
+        updateGearInDom();
+    }
+}
 
-    if (!car.moving) {
-        car.moving = true;
+// ─── Physics loop ─────────────────────────────────────────────────────────────
 
-        // Set transition once here — no need to repeat inside the animation loop
-        const lanes = document.getElementById("lanes");
-        lanes.style.transition = "all .7s linear";
+function physicsTick() {
+    const lanes = document.getElementById("lanes");
+    const gear  = car.gear;
 
-        function startMoving() {
-            if (car.gear <= -1) {
-                car.revSpeed += -1.8;
-                car.gear = -1;
-                updateGearInDom();
-            } else if (car.gear === 0) {
-                car.revSpeed += 0;
-                updateGearInDom();
-            } else if (car.gear === 1) {
-                car.revSpeed += 0.8;
-                updateGearInDom();
-            } else if (car.gear === 2) {
-                car.revSpeed += 1.8;
-                updateGearInDom();
-            } else if (car.gear === 3) {
-                car.revSpeed += 3.2;
-                updateGearInDom();
-            } else if (car.gear === 4) {
-                car.revSpeed += 4.8;
-                updateGearInDom();
-            } else if (car.gear === 5) {
-                car.revSpeed += 6.8;
-                updateGearInDom();
-            } else if (car.gear === 6) {
-                car.revSpeed += 8.3;
-                updateGearInDom();
-            } else {
-                car.gear = 6;
-            }
+    if (gear === 0) {
+        // Neutral / Park — bleed to a stop, no acceleration possible
+        if (car.revSpeed > 0)       car.revSpeed = Math.max(0, car.revSpeed - COAST_DECAY);
+        else if (car.revSpeed < 0)  car.revSpeed = Math.min(0, car.revSpeed + COAST_DECAY);
 
-            // Enforce max speed cap for the current gear
-            if (car.gear >= 1 && car.revSpeed > maxSpeed[car.gear]) {
-                car.revSpeed = maxSpeed[car.gear];
-            }
-
-            lanes.style.backgroundPositionY = car.revSpeed + "px";
-            car.updateCurrentSpeedInDom.textContent = Math.round(Math.abs(car.revSpeed));
-
-            car.animationId = requestAnimationFrame(startMoving);
+    } else if (gear === -1) {
+        // Reverse — throttle pushes negative speed, brake pulls toward 0
+        const cap = -maxSpeed[1]; // reverse capped at gear-1 speed
+        if (car.throttleHeld && car.revSpeed > cap) {
+            car.revSpeed = Math.max(cap, car.revSpeed - accelRate["-1"]);
+        } else if (car.brakeHeld) {
+            car.revSpeed = Math.min(0, car.revSpeed + BRAKE_DECAY);
+        } else {
+            // coast
+            car.revSpeed = Math.min(0, car.revSpeed + COAST_DECAY);
         }
 
-        startMoving();
+    } else {
+        // Forward gears 1–6
+        const cap = maxSpeed[gear];
+        if (car.throttleHeld && car.revSpeed < cap) {
+            car.revSpeed = Math.min(cap, car.revSpeed + accelRate[gear]);
+        } else if (car.brakeHeld) {
+            car.revSpeed = Math.max(0, car.revSpeed - BRAKE_DECAY);
+        } else {
+            // coast
+            car.revSpeed = Math.max(0, car.revSpeed - COAST_DECAY);
+        }
+
+        // If the driver downshifted while above the new gear's cap, clamp speed
+        if (car.revSpeed > cap) car.revSpeed = cap;
     }
+
+    // Scroll the road
+    car.bgPosition += car.revSpeed;
+    lanes.style.backgroundPositionY = car.bgPosition + "px";
+
+    // Update speedometer
+    car.updateCurrentSpeedInDom.textContent = Math.round(Math.abs(car.revSpeed));
+
+    // Play idle sound only while the car is moving; stop it when stationary
+    const isMoving = Math.abs(car.revSpeed) > 0.05;
+    if (car.engineOn && isMoving) {
+        if (idleSound.paused) {
+            idleSound.currentTime = 0;
+            idleSound.play();
+        }
+    } else {
+        if (!idleSound.paused) {
+            idleSound.pause();
+            idleSound.currentTime = 0;
+        }
+    }
+
+    car.animationId = requestAnimationFrame(physicsTick);
 }
 
-function brake() {
-    if (car.engineOn) {
-        car.gear--;
-        if (car.gear < -1) car.gear = -1; // floor at reverse
-    }
+// Start the loop once on page load; it runs forever and reacts to flags
+function startPhysicsLoop() {
+    if (car.animationId) return; // already running
+    physicsTick();
 }
 
-// Gear indicator lookup map — maps gear number to its DOM element and colour
+// ─── Gear indicator ───────────────────────────────────────────────────────────
+
 const gearIndicatorMap = {
-    "-1": { el: () => car.reverseIndicator, color: () => car.reverseGearLight },
-     "0": { el: () => car.neutralIndicator, color: () => car.neutralGearLight },
-     "1": { el: () => car.gear1Indicator,   color: () => car.positiveGearLight },
-     "2": { el: () => car.gear2Indicator,   color: () => car.positiveGearLight },
-     "3": { el: () => car.gear3Indicator,   color: () => car.positiveGearLight },
-     "4": { el: () => car.gear4Indicator,   color: () => car.positiveGearLight },
-     "5": { el: () => car.gear5Indicator,   color: () => car.positiveGearLight },
-     "6": { el: () => car.gear6Indicator,   color: () => car.positiveGearLight },
+    "-1": { el: () => car.reverseIndicator,  color: () => car.reverseGearLight },
+     "0": { el: () => car.neutralIndicator,  color: () => car.neutralGearLight },
+     "1": { el: () => car.gear1Indicator,    color: () => car.positiveGearLight },
+     "2": { el: () => car.gear2Indicator,    color: () => car.positiveGearLight },
+     "3": { el: () => car.gear3Indicator,    color: () => car.positiveGearLight },
+     "4": { el: () => car.gear4Indicator,    color: () => car.positiveGearLight },
+     "5": { el: () => car.gear5Indicator,    color: () => car.positiveGearLight },
+     "6": { el: () => car.gear6Indicator,    color: () => car.positiveGearLight },
 };
 
-// Track the currently lit indicator so we only touch two elements per update
-let activeGearIndicator = car.neutralIndicator;
+let activeGearIndicator = null; // set after DOM is ready
 
 function updateGearInDom() {
-    // Turn off the previously active indicator
-    activeGearIndicator.style.backgroundColor = car.noColor;
-
-    // Look up and light up the new active indicator
-    const entry = gearIndicatorMap[String(car.gear)] || gearIndicatorMap["-1"];
+    if (activeGearIndicator) activeGearIndicator.style.backgroundColor = car.noColor;
+    const entry = gearIndicatorMap[String(car.gear)] || gearIndicatorMap["0"];
     activeGearIndicator = entry.el();
     activeGearIndicator.style.backgroundColor = entry.color();
 }
 
-// Initialise gear display on page load
-updateGearInDom();
+// Initialise after DOM is ready (called from ui.js)
+function initGears() {
+    activeGearIndicator = car.neutralIndicator;
+    updateGearInDom();
+    startPhysicsLoop();
+}

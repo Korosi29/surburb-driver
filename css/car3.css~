@@ -1,11 +1,12 @@
 /* car1.css — Player car (Car 1) styles and lighting effects */
 
 #c1-container {
-    display: block;
-    position: absolute;
-    width: 80px;
+    display: non;
+    position: relative;
+    width: 190px;
+    height: contain;
     top: 60%;
-    left: 158px;   /* right lane default */
+    left: 100px;
 }
 
 #car1 {
@@ -13,26 +14,27 @@
     width: 100%;
 }
 
-/* Headlights — at the front (top) of car */
+/* Headlights */
 .c1-headlight-left,
 .c1-headlight-right {
     display: none;
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
     background-color: #e3e3ff;
     position: absolute;
-    top: 10px;
-    left: 12px;
+    bottom: -34px;
+    left: 67px;
     box-shadow:
-        0 -40px 25px 4px rgba(255, 255, 255, 0.4),
-        0 -60px 18px 8px rgba(255, 255, 255, 0.7),
-        0 -80px 18px 4px rgba(255, 255, 255, 0.6),
-        0px -100px 18px 4px rgba(255, 255, 224, 0.3);
+        0 -50px 30px 5px rgba(255, 255, 255, 0.4),
+        0 -70px 20px 10px rgba(255, 255, 255, 0.7),
+        0 -90px 20px 5px rgba(255, 255, 255, 0.6),
+        0px -110px 20px 5px rgba(255, 255, 224, 0.3);
     filter: blur(2px) brightness(1);
 }
 
 .c1-headlight-right {
-    left: 63px;
+    bottom: -35px;
+    left: 112px;
 }
 
 .on-low-beam-headlight {
@@ -41,10 +43,10 @@
 
 .on-full-beam-headlight {
     box-shadow:
-        0 -40px 25px 4px rgba(255, 255, 255, 0.8),
-        0 -70px 18px 8px rgba(255, 255, 255, 1),
-        0 -90px 18px 12px rgba(255, 255, 255, 1),
-        0px -100px 18px 6px rgba(255, 255, 224, 0.8);
+        0 -50px 30px 5px rgba(255, 255, 255, 0.8),
+        0 -80px 20px 10px rgba(255, 255, 255, 1),
+        0 -100px 20px 15px rgba(255, 255, 255, 1),
+        0px -110px 20px 8px rgba(255, 255, 224, 0.8);
     filter: blur(2px) brightness(2.5);
 }
 
@@ -58,65 +60,61 @@
     height: 3px;
     background-color: yellow;
     position: absolute;
-    top: 20px;
-    left: 10px;
-    box-shadow: -8px -8px 25px 8px rgba(255, 255, 0, 0.7);
+    bottom: -37px;
+    left: 64px;
+    box-shadow: -10px -10px 30px 10px rgba(255, 255, 0, 0.7);
     filter: blur(1px) brightness(2);
     animation: turn-sig-blink 0.75s infinite steps(2);
 }
 
 .c1-turn-sig-back-left {
-    top: auto;
-    bottom: -167px;
-    left: 15px;
-    box-shadow: -8px 8px 25px 8px rgba(255, 255, 0, 0.7);
+    bottom: -161px;
+    left: 66px;
+    box-shadow: -10px 10px 30px 10px rgba(255, 255, 0, 0.7);
 }
 
 .c1-turn-sig-front-right {
-    top: 20px;
-    left: auto;
-    right: 10px;
-    box-shadow: 8px -8px 25px 8px rgba(255, 255, 0, 0.7);
+    bottom: -38px;
+    left: 121px;
+    box-shadow: 10px -10px 30px 10px rgba(255, 255, 0, 0.7);
 }
 
 .c1-turn-sig-back-right {
-    top: auto;
-    bottom: -167px;
-    left: auto;
-    right: 14px;
-    box-shadow: 8px 8px 25px 8px rgba(255, 255, 0, 0.7);
+    bottom: -161px;
+    left: 118px;
+    box-shadow: 10px 10px 30px 10px rgba(255, 255, 0, 0.7);
 }
 
 .on-turn-sig {
     display: block;
 }
 
-/* Tail lights — at the back (bottom) of car */
+/* Tail lights */
 .c1-mid-tail-light {
     position: absolute;
-    width: 10px;
+    width: 15px;
     height: 1px;
     background-color: darkred;
-    bottom: -174px;
-    left: 35px;
+    bottom: -166px;
+    left: 87px;
 }
 
 .c1-tail-light-left,
 .c1-tail-light-right {
-    display: non;
+    display: none;
     width: 3px;
     height: 2px;
     background-color: darkred;
     position: absolute;
-    bottom: -167px;
-    left: 14px;
-    box-shadow: 0px 60px 60px 6px rgba(255, 0, 0, 0.9);
+    bottom: -163px;
+    left: 69px;
+    box-shadow: 0px 70px 70px 8px rgba(255, 0, 0, 0.9);
     filter: blur(2px) brightness(2.7);
 }
 
 .c1-tail-light-right {
-    left: auto;
-    right: 14px;
+    bottom: -163px;
+    left: 116px;
 }
 
 .c1-brake-blink {

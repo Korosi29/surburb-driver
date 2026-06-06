@@ -57,7 +57,7 @@
                     <div class="c1-turn-sig-front-right c1-turn-sig"></div>
                     <div class="c1-turn-sig-back-left c1-turn-sig"></div>
                     <div class="c1-turn-sig-back-right c1-turn-sig"></div>
-                    <div class="c1-mid-tail-light"></div>
+                    <div class="c1-mid-tail-light c1-brake-blink"></div>
                     <div class="c1-tail-light-left"></div>
                     <div class="c1-tail-light-right"></div>
                 </div>

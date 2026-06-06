@@ -128,3 +128,35 @@
     width: 20px;
     filter: invert(100%);
 }
+
+/* ── Gear shift buttons ────────────────────────────────────── */
+.shift-con {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: fixed;
+    left: 6px;
+    bottom: 54%;
+    z-index: 10;
+}
+
+.shift-btn {
+    width: 36px;
+    height: 36px;
+    background: rgba(30, 30, 30, 0.85);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 6px;
+    color: #fff;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shift-btn:active {
+    background: rgba(0, 100, 220, 0.7);
+}

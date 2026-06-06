@@ -6,6 +6,7 @@ const car = {
     // Engine & movement state
     engineOn: false,
     revSpeed: 0,
+    bgPosition: 0,
     animationId: undefined,
     moving: false,
     gear: 0,

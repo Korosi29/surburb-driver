@@ -1,0 +1,92 @@
+/* car2.css — Second car (Car 2) styles and lighting effects */
+
+.c2-container {
+    display: none;
+    position: relative;
+    width: 260px;
+    height: contain;
+    top: 60%;
+    left: 66px;
+}
+
+#car2 {
+    position: absolute;
+    width: 100%;
+}
+
+/* Headlights */
+.c2-headlight-left,
+.c2-headlight-right {
+    display: none;
+    width: 6px;
+    height: 4px;
+    background-color: #e3e3ff;
+    position: absolute;
+    bottom: -57px;
+    left: 97px;
+    box-shadow:
+        0 -50px 20px 5px rgba(255, 255, 255, 0.4),
+        0 -70px 30px 10px rgba(255, 255, 255, 0.7),
+        0 -90px 20px 5px rgba(255, 255, 255, 0.6),
+        0px -110px 20px 5px rgba(255, 255, 224, 0.3);
+    filter: blur(2px) brightness(1);
+}
+
+.c2-headlight-right {
+    bottom: -57px;
+    left: 156px;
+}
+
+/* Turn signals */
+.c2-turn-sig-front-left,
+.c2-turn-sig-back-left,
+.c2-turn-sig-front-right,
+.c2-turn-sig-back-right {
+    width: 3px;
+    height: 3px;
+    position: absolute;
+    background: yellow;
+    bottom: -61px;
+    left: 94px;
+    box-shadow: -10px -10px 30px 10px rgba(255, 255, 0, 0.7);
+    filter: blur(1px) brightness(2.7);
+    animation: turn-sig-blink 0.75s infinite steps(2);
+}
+
+.c2-turn-sig-back-left {
+    bottom: -232px;
+    left: 94px;
+    width: 0;
+    box-shadow: -10px 10px 30px 10px rgba(255, 255, 0, 0.7);
+}
+
+.c2-turn-sig-front-right {
+    bottom: -61px;
+    left: 161px;
+    box-shadow: 10px -10px 30px 10px rgba(255, 255, 0, 0.7);
+}
+
+.c2-turn-sig-back-right {
+    bottom: -232px;
+    left: 161px;
+    width: 0;
+    box-shadow: 10px 10px 30px 10px rgba(255, 255, 0, 0.7);
+}
+
+/* Tail lights */
+.c2-tail-light-left,
+.c2-tail-light-right {
+    width: 3px;
+    height: 2px;
+    background-color: darkred;
+    position: absolute;
+    bottom: -232px;
+    left: 94px;
+    box-shadow: 0px 70px 70px 8px rgba(255, 0, 0, 0.9);
+    filter: blur(2px) brightness(2.7);
+}
+
+.c2-tail-light-right {
+    bottom: -232px;
+    left: 161px;
+}
