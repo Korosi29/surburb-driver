@@ -13,9 +13,34 @@ function onHold(el, onStart, onEnd) {
 }
 
 // ─── Throttle — hold to accelerate ──────────────────────────────────────────
+let _hintTimeout = null;
+
+function showDriveHint() {
+    if (document.getElementById("drive-hint")) return;
+    const msg = !car.engineOn ? "Start the engine first! 🔑" : "Select a gear first! ⚙️";
+    const el  = document.createElement("div");
+    el.id = "drive-hint";
+    el.textContent = msg;
+    document.body.appendChild(el);
+    // Trigger fade-in
+    requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add("visible")));
+    // Auto-dismiss after 2s
+    clearTimeout(_hintTimeout);
+    _hintTimeout = setTimeout(() => {
+        el.classList.remove("visible");
+        setTimeout(() => { if (el.parentNode) el.remove(); }, 300);
+    }, 2000);
+}
+
 onHold(
     car.throttle,
-    () => { if (car.engineOn && car.gear !== 0) car.throttleHeld = true; },
+    () => {
+        if (car.engineOn && car.gear !== 0) {
+            car.throttleHeld = true;
+        } else {
+            showDriveHint();
+        }
+    },
     () => { car.throttleHeld = false; }
 );
 
@@ -49,5 +74,6 @@ initGears();
 // ─── Loading screen ───────────────────────────────────────────────────────────
 document.querySelector(".loading-bar").addEventListener("animationend", function () {
     document.querySelector(".loading-main").style.display = "none";
+    document.querySelector(".my-game").style.visibility = "visible";
     document.querySelector(".menu-con").style.display = "flex";
 });

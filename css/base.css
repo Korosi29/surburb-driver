@@ -9,7 +9,9 @@ body {
     width: 350px;
 }
 
-.my-game {}
+.my-game {
+    visibility: hidden; /* hidden until loading screen dismisses */
+}
 
 .about-text-con {
     background-color: #000000ff;

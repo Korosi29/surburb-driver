@@ -2,16 +2,18 @@
 // Depends on: car.js
 
 // Road: 300px wide, divider at 152px. Car is 80px wide.
-// Right lane: 152–300px → center 186px
-// Left  lane:   0–152px → center  36px
+// Right lane: 152–265px → center 208px → left edge = 208 - 40 = 168px
+// Left  lane:   35–152px → center  93px → left edge =  93 - 40 =  53px
 // Full road boundaries for the car (80px wide)
-const ROAD_LEFT  = 0;
-const ROAD_RIGHT = 220;
-const DEFAULT_X  = 186;  // right lane center — starting position
+const ROAD_LEFT  = 10;   // slight inset from road edge
+const ROAD_RIGHT = 215;  // keeps right edge within road (215 + 80 = 295)
+const DEFAULT_X  = 168;  // right lane center — starting position
 
-// Speeds
-const DRIFT_SPEED  = 1.8;  // px per frame while button held
+// Speeds — DRIFT_SPEED is overridden at runtime by settings.js via window._driftSpeed
+const DRIFT_SPEED  = 1.8;  // default; settings.js may change window._driftSpeed
 const RETURN_SPEED = 1.4;  // px per frame returning to rest
+// Inline getter so sensitivity changes take effect immediately without reload
+function getDrift() { return window._driftSpeed || DRIFT_SPEED; }
 
 // ── Gyroscope config ──────────────────────────────────────────────────────────
 // In portrait mode, gamma = left/right tilt (-90 left … 0 neutral … +90 right)
@@ -24,8 +26,9 @@ let gyroEnabled  = false;
 let gammaTilt    = 0;   // smoothed gamma value
 
 // ── State ─────────────────────────────────────────────────────────────────────
-let carX   = DEFAULT_X;
-let restX  = DEFAULT_X;  // where car returns to when released
+// Use settings lane position if available, else fall back to DEFAULT_X
+let carX   = window._playerDefaultX || DEFAULT_X;
+let restX  = window._playerDefaultX || DEFAULT_X;  // where car returns to when released
 
 let steerLeft  = false;
 let steerRight = false;
@@ -36,14 +39,16 @@ function steerTick() {
 
     if (moving) {
         let moved = false;
+        const roadL = window._playerRoadLeft  || ROAD_LEFT;
+        const roadR = window._playerRoadRight || ROAD_RIGHT;
 
         // Button input takes priority
         if (steerLeft) {
-            carX  = Math.max(ROAD_LEFT, carX - DRIFT_SPEED);
+            carX  = Math.max(roadL, carX - getDrift());
             restX = carX;
             moved = true;
         } else if (steerRight) {
-            carX  = Math.min(ROAD_RIGHT, carX + DRIFT_SPEED);
+            carX  = Math.min(roadR, carX + getDrift());
             restX = carX;
             moved = true;
         }
@@ -57,9 +62,9 @@ function steerTick() {
                                    (GYRO_MAX_TILT - GYRO_DEAD_ZONE);
                 const speed      = Math.min(1, effective) * GYRO_SPEED_MAX;
                 if (tilt < 0) {
-                    carX  = Math.max(ROAD_LEFT,  carX - speed);
+                    carX  = Math.max(roadL, carX - speed);
                 } else {
-                    carX  = Math.min(ROAD_RIGHT, carX + speed);
+                    carX  = Math.min(roadR, carX + speed);
                 }
                 restX = carX;
             } else {
@@ -155,6 +160,4 @@ function play() {
     document.querySelector(".menu-con").style.display = "none";
 }
 
-function goToAboutPage() {
-    window.location.href = "about.html";
-}
+// goToAboutPage removed — replaced by How to Play tutorial

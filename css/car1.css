@@ -3,9 +3,9 @@
 #c1-container {
     display: block;
     position: absolute;
-    width: 80px;
+    width: 80px;   /* matches NPC car1 width */
     top: 60%;
-    left: 158px;   /* right lane default */
+    left: 168px;   /* right lane center (208) minus half width (40) */
 }
 
 #car1 {
@@ -32,7 +32,7 @@
 }
 
 .c1-headlight-right {
-    left: 63px;
+    left: 55px;
 }
 
 .on-low-beam-headlight {
@@ -75,7 +75,7 @@
 .c1-turn-sig-front-right {
     top: 20px;
     left: auto;
-    right: 10px;
+    right: 8px;
     box-shadow: 8px -8px 25px 8px rgba(255, 255, 0, 0.7);
 }
 
@@ -83,7 +83,7 @@
     top: auto;
     bottom: -167px;
     left: auto;
-    right: 14px;
+    right: 8px;
     box-shadow: 8px 8px 25px 8px rgba(255, 255, 0, 0.7);
 }
 

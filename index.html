@@ -117,41 +117,88 @@
                 <img src="assets/images/signal.png" alt="turn signal right" class="control-icons turn-right" />
             </div>
 
-            <!-- Speed display -->
-            <div id="speed-display"><span></span></div>
+            <!-- Speedometer -->
+            <div id="speedometer">
+                <canvas id="speedo-canvas" width="90" height="90"></canvas>
+                <div id="speedo-label">
+                    <span id="speedo-value">0</span>
+                    <span id="speedo-unit">km/h</span>
+                </div>
+                <div id="speedo-dir"></div>
+            </div>
 
             <!-- Pause button -->
             <div id="pause">
                 <img src="assets/images/pause.png" onclick="pause()" />
             </div>
 
+            <!-- Hint button -->
+            <div id="hint-btn" onclick="showTutorial(false)">?</div>
+
             <!-- Main menu overlay -->
             <div class="menu-con">
                 <div class="menu-inner-con">
-                    <div class="play" onclick="play()">Play</div>
-                    <div class="about" onclick="goToAboutPage()">About Developer</div>
-                    <div class="kgames">@ KGames &copy;2024</div>
+                    <div class="menu-top-fade"></div>
+                    <div class="menu-content">
+                        <div class="menu-logo">
+                            <span class="menu-logo-main">Suburb</span>
+                            <span class="menu-logo-sub">D R I V E R</span>
+                        </div>
+                        <div class="menu-buttons">
+                            <button class="menu-btn menu-btn-play" onclick="play()">
+                                <span class="menu-btn-icon">▶</span>
+                                <span class="menu-btn-label">Play</span>
+                            </button>
+                            <button class="menu-btn menu-btn-howto" onclick="showTutorial()">
+                                <span class="menu-btn-icon">?</span>
+                                <span class="menu-btn-label">How to Play</span>
+                            </button>
+                            <button class="menu-btn menu-btn-settings" onclick="openSettings()">
+                                <span class="menu-btn-icon">⚙</span>
+                                <span class="menu-btn-label">Settings</span>
+                            </button>
+                        </div>
+                        <div class="menu-footer">
+                            <span class="menu-footer-line"></span>
+                            <span class="menu-footer-text">KGames &copy; 2024</span>
+                            <span class="menu-footer-line"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Loading screen -->
-            <div class="loading-main">
-                <div class="loading-inner"></div>
-                <div class="loading-bar-con">
-                    <div class="loading-bar"></div>
-                    <div class="loading-text">Loading...</div>
-                    <div class="version-number">version 1.1</div>
+        </div>
+
+        <!-- Loading screen — outside .my-game so visibility:hidden doesn't affect it -->
+        <div class="loading-main">
+            <div class="loading-bg"></div>
+            <div class="loading-content">
+                <div class="loading-logo">
+                    <span class="loading-logo-main">Suburb</span>
+                    <span class="loading-logo-sub">D R I V E R</span>
                 </div>
+                <div class="loading-bar-wrap">
+                    <div class="loading-bar-track">
+                        <div class="loading-bar"></div>
+                    </div>
+                    <div class="loading-label">
+                        <span class="loading-text">Loading</span>
+                        <span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>
+                    </div>
+                </div>
+                <div class="loading-version">v1.1 &nbsp;·&nbsp; KGames</div>
             </div>
         </div>
 
         <!-- Modular JS — order matters -->
         <script src="js/car.js"></script>
+        <script src="js/settings.js"></script>
         <script src="js/engine.js"></script>
         <script src="js/npc.js"></script>
         <script src="js/gears.js"></script>
         <script src="js/controls.js"></script>
         <script src="js/lights.js"></script>
         <script src="js/ui.js"></script>
+        <script src="js/tutorial.js"></script>
     </body>
 </html>

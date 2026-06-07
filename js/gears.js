@@ -2,10 +2,12 @@
 // Depends on: car.js
 
 // Maximum forward speed allowed per gear (km/h equivalent units)
+// Unchanged — each gear still reaches the same top speed
 const maxSpeed = { 1: 3, 2: 5, 3: 8, 4: 12, 5: 16, 6: 20 };
 
-// Acceleration added per frame per gear when throttle is held
-const accelRate = { "-1": 0.13, 1: 0.06, 2: 0.09, 3: 0.13, 4: 0.18, 5: 0.24, 6: 0.30 };
+// Acceleration per frame — gear 1 unchanged, gears 2-6 progressively slower to build
+// so the player must start from gear 1 and shift up to reach high speeds efficiently
+const accelRate = { "-1": 0.13, 1: 0.06, 2: 0.038, 3: 0.028, 4: 0.020, 5: 0.013, 6: 0.008 };
 
 // How fast speed bleeds off per frame when coasting (no throttle, no brake)
 const COAST_DECAY   = 0.03;
@@ -46,6 +48,7 @@ function gearDown() {
 // ─── Physics loop ─────────────────────────────────────────────────────────────
 
 function physicsTick() {
+    if (window._tutorialPaused) { car.animationId = requestAnimationFrame(physicsTick); return; }
     const lanes = document.getElementById("lanes");
     const gear  = car.gear;
 
@@ -86,20 +89,30 @@ function physicsTick() {
     car.bgPosition += car.revSpeed;
     lanes.style.backgroundPositionY = car.bgPosition + "px";
 
-    // Update speedometer
-    car.updateCurrentSpeedInDom.textContent = Math.round(Math.abs(car.revSpeed));
+    // Update speedometer (function defined in tutorial.js which loads after this file;
+    // guard prevents crash if called before it is ready)
+    if (typeof updateSpeedometer === "function") updateSpeedometer(car.revSpeed, car.gear);
 
-    // Play idle sound only while the car is moving; stop it when stationary
+    // Fade idle sound in/out based on movement
     const isMoving = Math.abs(car.revSpeed) > 0.05;
     if (car.engineOn && isMoving) {
         if (idleSound.paused) {
             idleSound.currentTime = 0;
+            idleSound.volume = 0;
             idleSound.play();
+        }
+        // Fade in
+        if (idleSound.volume < 1) {
+            idleSound.volume = Math.min(1, idleSound.volume + 0.04);
         }
     } else {
         if (!idleSound.paused) {
-            idleSound.pause();
-            idleSound.currentTime = 0;
+            // Fade out
+            idleSound.volume = Math.max(0, idleSound.volume - 0.04);
+            if (idleSound.volume === 0) {
+                idleSound.pause();
+                idleSound.currentTime = 0;
+            }
         }
     }
 

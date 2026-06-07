@@ -33,10 +33,19 @@ function startStopEngine() {
     } else {
         car.engineOn = false;
 
-        // Stop idle, play off sound
-        idleSound.pause();
-        idleSound.currentTime = 0;
+        // Fade out idle sound, then play off sound
         car.offingSound.play();
+        (function fadeOut() {
+            if (idleSound.paused) return;
+            if (idleSound.volume > 0.05) {
+                idleSound.volume = Math.max(0, idleSound.volume - 0.05);
+                setTimeout(fadeOut, 30);
+            } else {
+                idleSound.pause();
+                idleSound.currentTime = 0;
+                idleSound.volume = 1;
+            }
+        })();
 
         document.querySelector(".ignition-indicator").style.backgroundColor = car.noColor;
 
